@@ -34,7 +34,7 @@ const createUser = async function(req, res) {
 
 const updateUser = async function(req, res) {
     try {
-        const updatedUser = await User.updateOne({ _id: req.body.id }, req.body )
+        const updatedUser = await User.updateOne({ _id: req.params.userId }, req.body )
         res.json(updatedUser)
     } catch (err) {
         console.log(err)
@@ -44,7 +44,7 @@ const updateUser = async function(req, res) {
 
 const deleteUser = async function(req, res) {
     try {
-        const deletedUser = await User.deleteOne({ _id: req.body.id })
+        const deletedUser = await User.deleteOne({ _id: req.params.userId })
         res.json(deletedUser)
     } catch(err) {
         console.log(err)
