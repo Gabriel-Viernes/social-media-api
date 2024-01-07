@@ -1,10 +1,10 @@
 const User = require('../models/User')
 const { Schema, model } = require('mongoose')
 
-
+//http routes for /api/user
 const getUsers = async function(req, res) {
     try {
-        const users = await User.find()
+        const users = await User.find().populate('thoughts').populate('friends')
         res.json(users)
     } catch (err) {
         console.log(err)
@@ -14,7 +14,7 @@ const getUsers = async function(req, res) {
 
 const getSingleUser = async function(req, res) {
     try {
-        const users = await User.findOne(req.params.id)
+        const users = await User.findOne(req.params.id).populate('thoughts').populate('friends')
         res.json(users)
     } catch (err) {
         console.log(err)
@@ -51,10 +51,23 @@ const deleteUser = async function(req, res) {
         res.status(500).json(err)
     }
 }
+
+const addFriend = async function(req, res) {
+    try {
+        const newFriend = await User.updateOne({ _id: req.params.userId }, { friends: req.params.friendId })
+        res.json(newFriend)
+    } catch (err) {
+        console.log(err)
+        res.status(500).json(err)
+    }
+}
+
+
 module.exports = {
     getUsers,
     getSingleUser,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    addFriend
 }

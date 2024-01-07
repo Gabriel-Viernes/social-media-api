@@ -20,11 +20,11 @@ const userSchema = new Schema(
                 message: emailResult => `${emailResult.value} is not a valid email!`
             }
         },
-        thoughts: [thoughtSchema],
-        friends: {
-            type: String,
-            default: 'no friends lmao'
-        }
+        thoughts: [{
+            type: Schema.Types.ObjectId,
+            ref: 'thought'
+        }],
+        friends: [this]
     },
     {
         toJSON: {
@@ -34,9 +34,10 @@ const userSchema = new Schema(
     }
 )
 
-userSchema.virtual('friendCount').get(function() {
-    return this.friends.length
-})
+//userSchema.virtual('friendCount').get(function() {
+//    console.log(this.friends)
+//    return this.friends.length
+//})
 
 const User = model('user', userSchema)
 module.exports = User
