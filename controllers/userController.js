@@ -1,5 +1,4 @@
 const User = require('../models/User')
-const { Schema, model } = require('mongoose')
 
 //http routes for /api/user
 const getUsers = async function(req, res) {
@@ -14,7 +13,7 @@ const getUsers = async function(req, res) {
 
 const getSingleUser = async function(req, res) {
     try {
-        const users = await User.findOne(req.params.id).populate('thoughts').populate('friends')
+        const users = await User.findOne({ _id: req.params.userId }).populate('thoughts').populate('friends')
         res.json(users)
     } catch (err) {
         console.log(err)
