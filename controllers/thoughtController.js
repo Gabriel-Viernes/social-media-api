@@ -56,9 +56,8 @@ const deleteThought = async function(req, res) {
         res.status(500).json(err)
     }
 }
-//
+
 const addReaction = async function(req, res) {
-    console.log('lol')
     try {
         const newReaction = await Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
@@ -75,7 +74,6 @@ const addReaction = async function(req, res) {
 }
 
 const removeReaction = async function(req, res) {
-    console.log('lol')
     try {
         const deletedReaction = await Thought.updateOne(
             { _id: req.params.thoughtId },
