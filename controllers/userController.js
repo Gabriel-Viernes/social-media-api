@@ -53,6 +53,7 @@ const deleteUser = async function(req, res) {
 
 const addFriend = async function(req, res) {
     try {
+        const newFriend = await User.findOne
         const updatedUser = await User.updateOne(
             { _id: req.params.userId }, 
             { $addToSet: { friends: req.body }},
@@ -71,8 +72,6 @@ const addFriend = async function(req, res) {
 }
 
 const removeFriend = async function(req, res) {
-    console.log(req.params.userId)
-    console.log(req.params.friendId)
     try {
         const updatedUser = await User.updateOne(
             { _id: req.params.userId }, 
